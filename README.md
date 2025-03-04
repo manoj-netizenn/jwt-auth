@@ -49,7 +49,7 @@ npm i dependency-name -D
 
 ## Installation
 
-- First, install Mongoose in your project:
+- install Mongoose in your project:
 
 ```bash
 npm install mongoose
