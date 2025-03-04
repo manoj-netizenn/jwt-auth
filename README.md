@@ -82,4 +82,4 @@ node server.js
 npm run server
 ```
 
-project is now running on <a href ="localhost:3000" >localhost:3000</a>
+project is now running on <a href ="http://localhost:3000">localhost:3000</a>
