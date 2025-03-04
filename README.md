@@ -1,6 +1,6 @@
 
 
-# JSON Web Token (JWT) Authentication in Express using node.js
+# JSON Web Token (JWT) Authentication in Express 
 
 ## Description
 JSON Web Token (JWT) is a secure and stateless authentication method that allows users to authenticate using a signed token instead of traditional session-based authentication. This document provides a detailed overview of how JWT authentication works in an Express.js application.
@@ -76,7 +76,7 @@ mongoose.connect("url").then().catch()
 ```bash
 node server.js
 ```
-- or
+or
 
 ```bash
 npm run server
