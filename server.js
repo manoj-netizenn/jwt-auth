@@ -173,8 +173,7 @@ app.post("/reset-password/:token", async (req, res) => {
     return res
       .status(400)
       .send(
-        "Password must be at least 8 characters long and contain at least one uppercase letter, " +
-          "one lowercase letter, one number, and one special character (@$!%*?&)"
+        "error password did not meet the criteria"
       );
   }
 
