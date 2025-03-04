@@ -5,6 +5,10 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.set("view engine", "ejs");
+
 mongoose
   .connect("mongodb://localhost:27017/userAuthDB")
   .then(() => {
@@ -22,10 +26,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 const User = mongoose.model("User", userSchema);
-
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.set("view engine", "ejs");
 
 const isAuthenticated = (req, res, next) => {
   const token = req.cookies ? req.cookies.token : null;
