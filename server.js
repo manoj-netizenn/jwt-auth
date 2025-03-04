@@ -17,6 +17,7 @@ mongoose
   .catch((e) => {
     console.log(e);
   });
+
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
@@ -25,6 +26,7 @@ const userSchema = new mongoose.Schema({
     default: "user",
   },
 });
+
 const User = mongoose.model("User", userSchema);
 
 const isAuthenticated = (req, res, next) => {
@@ -38,7 +40,6 @@ const isAuthenticated = (req, res, next) => {
     next();
   });
 };
-
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -67,19 +68,11 @@ app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
   if (!validateUsername(username)) {
-    return res
-      .status(400)
-      .send(
-        "Username did not meet criteria"
-      );
+    return res.status(400).send("Username did not meet criteria");
   }
 
   if (!validatePassword(password)) {
-    return res
-      .status(400)
-      .send(
-        "invalid password"
-      );
+    return res.status(400).send("invalid password");
   }
 
   const existingUser = await User.findOne({ username });
@@ -130,7 +123,6 @@ app.get("/dashboard", isAuthenticated, (req, res) => {
   res.redirect("/login");
 });
 
-
 app.get("/logout", (req, res) => {
   res.clearCookie("token");
 
@@ -170,11 +162,7 @@ app.post("/reset-password/:token", async (req, res) => {
   }
 
   if (!validatePassword(newPassword)) {
-    return res
-      .status(400)
-      .send(
-        "error password did not meet the criteria"
-      );
+    return res.status(400).send("error password did not meet the criteria");
   }
 
   try {

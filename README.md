@@ -67,7 +67,7 @@ The basic MongoDB connection string format is:
 ```javascript
 const url="mongodb://localhost:27017/your_database"
 mongoose.connect("url").then().catch()
-//replace this with your local database or connection string from mongodb account
+//replace this with your local database string or connection string from mongodb account
 
 ```
 
