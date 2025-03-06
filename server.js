@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const { MongoClient } = require("mongodb");
 const cookieParser = require("cookie-parser");
-
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+
+const port = process.env.PORT || 5000;
 const url = process.env.MONGO_URI||"mongodb://localhost:27017/userAuthDB";
 mongoose
   .connect(url)
