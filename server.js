@@ -2,20 +2,28 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+const { MongoClient } = require("mongodb");
 const cookieParser = require("cookie-parser");
 const app = express();
-
+dotenv.config();
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.set("view engine", "ejs");
-
+const port = process.env.PORT || 3000;
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/?retryWrites=true&w=majority`;
 mongoose
-  .connect("mongodb://localhost:27017/userAuthDB")
+  .connect(url)
   .then(() => {
-    console.log("DB has been connected");
+    console.log("database connected");
   })
-  .catch((e) => {
-    console.log(e);
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    app.listen(port, () => {
+      console.log(`listening on ${port}`);
+    });
   });
 
 const userSchema = new mongoose.Schema({
@@ -30,15 +38,18 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 const isAuthenticated = (req, res, next) => {
-  const token = req.cookies ? req.cookies.token : null;
-  if (!token) {
-    return res.redirect("/login");
-  }
-  jwt.verify(token, "anykey", (err, decoded) => {
-    if (err) return res.redirect("/login");
+  try {
+    const token = req.cookies ? req.cookies.token : null;
+    if (!token) {
+      return res.redirect("/login");
+    }
+
+    const decoded = jwt.verify(token, "anykey");
     req.userData = decoded;
     next();
-  });
+  } catch (err) {
+    return res.redirect("/login");
+  }
 };
 
 app.get("/", (req, res) => {
