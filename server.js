@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const { MongoClient } = require("mongodb");
@@ -23,10 +23,11 @@ mongoose
       console.log(`listening on ${port}`);
     });
   });
+const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.set("view engine", "ejs");
-const app = express();
+
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
