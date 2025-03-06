@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.set("view engine", "ejs");
 const port = process.env.PORT || 3000;
-const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/?retryWrites=true&w=majority`;
+const url = process.env.MONGO_URI||"mongodb://localhost:27017/userAuthDB";
 mongoose
   .connect(url)
   .then(() => {
