@@ -5,11 +5,9 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const { MongoClient } = require("mongodb");
 const cookieParser = require("cookie-parser");
-const app = express();
+
 dotenv.config();
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.set("view engine", "ejs");
+
 const port = process.env.PORT || 3000;
 const url = process.env.MONGO_URI||"mongodb://localhost:27017/userAuthDB";
 mongoose
@@ -25,7 +23,10 @@ mongoose
       console.log(`listening on ${port}`);
     });
   });
-
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.set("view engine", "ejs");
+const app = express();
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
